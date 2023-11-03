@@ -1,6 +1,6 @@
-import { formatPrice } from '../lib/helpers.js';
-import { createCartLine, showCartContent } from '../lib/ui.js';
-import { resettotal } from '../lib/resettotal.js';
+import { formatPrice } from './lib/helpers.js';
+import { createCartLine, showCartContent } from './lib/ui.js';
+import { resettotal } from './lib/resettotal.js';
 
 
 /**
@@ -109,4 +109,9 @@ for (const form of Array.from(addToCartForms)) {
   form.addEventListener('submit', submitHandler);
 }
 
+const sendaInn = document.querySelector('.senda');
+sendaInn.addEventListener('submit', klara);
+function klara(event) {
+  event.preventDefault()
 
+}
