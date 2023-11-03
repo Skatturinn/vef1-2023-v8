@@ -2,6 +2,7 @@ import { formatPrice } from './lib/helpers.js';
 import { createCartLine, showCartContent } from './lib/ui.js';
 import { resettotal } from './lib/resettotal.js';
 
+
 /**
  * @typedef {Object} Product
  * @property {number} id Auðkenni vöru, jákvæð heiltala stærri en 0.
@@ -45,9 +46,8 @@ function addProductToCart(product, quantity) {
     return;
   }
   
-  // TODO hér þarf að athuga hvort lína fyrir vöruna sé þegar til
   // let total;
-  // TODO hér þarf að athuga hvort lína fyrir vöruna sé þegar til
+  // hér þarf að athuga hvort lína fyrir vöruna sé þegar til check
   let s = true;
   const che = cartTableBodyElement.querySelectorAll('tr');
   for (const tr of Array.from(che)) {
@@ -67,7 +67,7 @@ function addProductToCart(product, quantity) {
   // Sýna efni körfu
   showCartContent(true);
 
-  // TODO sýna/uppfæra samtölu körfu
+  // sýna/uppfæra samtölu körfu 
   resettotal()
 }
 
@@ -88,7 +88,7 @@ function submitHandler(event) {
     return;
   }
 
-  // TODO hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
+  // hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
   // á input
   let quantity = parent.querySelector('input').valueAsNumber;
   if (!quantity) {
