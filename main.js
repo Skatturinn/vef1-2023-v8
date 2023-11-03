@@ -111,7 +111,14 @@ for (const form of Array.from(addToCartForms)) {
 
 const sendaInn = document.querySelector('.senda');
 sendaInn.addEventListener('submit', klara);
+
 function klara(event) {
   event.preventDefault()
 
+}
+
+function showreceipt() {
+
+
+  
 }
