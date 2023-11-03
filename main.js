@@ -1,6 +1,7 @@
 import { formatPrice } from "./lib/helpers.js";
 import { createCartLine, showCartContent } from "./lib/ui.js";
 import { resettotal } from "./lib/resettotal.js";
+import { showreceipt } from "./lib/showreceipt.js";
 
 
 /**
@@ -11,7 +12,7 @@ import { resettotal } from "./lib/resettotal.js";
  * @property {number} price Verð á vöru, jákvæð heiltala stærri en 0.
  */
 
-const products = [
+export const products = [
   {
     id: 1,
     title: 'HTML húfa',
@@ -114,54 +115,19 @@ sendaInn.addEventListener('submit', klara);
 
 function klara(event) {
   event.preventDefault()
-  const nafn = event.target[0].value
-  const heimili = event.target[1].value
-  showreceipt(nafn,heimili);
-}
-
-function showreceipt(nafn,heimili) {
   const dot = document.querySelectorAll('.cart table tbody tr');
-  // sýnum kvittun og felum rest
-  const pro = document.querySelector('.products');
-  const car = document.querySelector('.cart');
-  const rec = document.querySelector('.receipt');
-  if (!pro || !car || !rec) {
-    console.warn('fann ekki element.');
-    return;
+  if (dot.length < 1) {
+    window.alert('Karfa er tóm')
+    return
   }
-  const kvittun = document.createElement('ul');
-  pro.classList.add('hidden');
-  car.classList.add('hidden');
-  rec.classList.remove('hidden');
-  // 
-  const newlnafn = document.createElement('li');
-  kvittun.appendChild(newlnafn);
-  const setning = document.createElement('p');
-  setning.textContent = 'Pöntun móttekin: ' + String(nafn) + ' Heimilisfang: ' + String(heimili);
-  newlnafn.appendChild(setning); 
-  // tæmum cart
-  let finalprice = 0;
-  for (const efni of Array.from(dot)) {
-    const newl = document.createElement('li');
-    kvittun.appendChild(newl);
-    const magn = efni.querySelector('.foo').innerHTML;
-    const product = products.find((i) => i.id === Number(efni.dataset.productId));
-    efni.parentElement.removeChild(efni);
-    const setning = document.createElement('p');
-    setning.textContent = String(product.title) + ': ' + String(formatPrice(product.price)) + ' ' + String(magn) + ' stykki'
-    newl.appendChild(setning); 
-    finalprice	+= parseFloat(product.price)*Number(magn);
+  let nafn = event.target[0].value
+  if (!nafn) {
+    nafn = prompt('Vantar nafn')
   }
-  const newl = document.createElement('li');
-  newl.textContent = 'Samtals: ' + formatPrice(finalprice);
-  kvittun.appendChild(newl);
-  resettotal()
-
-  const takk = document.createElement('p');
-  takk.textContent = 'Takk fyrir að versla hjá okkur!'
-  const meira = document.createElement('a')
-  meira.textContent = 'Kaupa meira.'
-  meira.setAttribute('href', '.')
-  
-  rec.append(kvittun,takk,meira)
+  let heimili = event.target[1].value
+  if (!heimili) {
+    heimili = prompt('Vantar heimilisfang')
+  }
+  showreceipt(nafn,heimili,dot);
 }
+
