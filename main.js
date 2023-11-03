@@ -1,4 +1,6 @@
-import { addProductToCart } from './lib/addProductToCart.js';
+import { formatPrice } from './lib/helpers.js';
+import { createCartLine, showCartContent } from './lib/ui.js';
+import { resettotal } from './lib/resettotal.js';
 
 /**
  * @typedef {Object} Product
@@ -30,6 +32,45 @@ const products = [
   },
 ];
 
+/**
+ * Bæta vöru í körfu
+ * @param  {Product} product
+ * @param {number} quantity 
+ */
+function addProductToCart(product, quantity) {
+  const cartTableBodyElement = document.querySelector('.cart table tbody');
+  
+  if (!cartTableBodyElement) {
+    console.warn('fann ekki .cart table');
+    return;
+  }
+  
+  // TODO hér þarf að athuga hvort lína fyrir vöruna sé þegar til
+  // let total;
+  // TODO hér þarf að athuga hvort lína fyrir vöruna sé þegar til
+  let s = true;
+  const che = cartTableBodyElement.querySelectorAll('tr');
+  for (const tr of Array.from(che)) {
+    if (tr.dataset.productId == product.id) {
+      s = false;
+      let num = tr.querySelector('.foo');
+      if (!num) { return };
+      num.textContent = String(quantity+Number(num.innerHTML));
+      let total = tr.querySelector('.totalcost');
+      total.textContent = formatPrice(product.price*num.innerHTML)
+    }
+  }
+  if (s) {
+    const cartLine = createCartLine(product, quantity);
+    cartTableBodyElement.appendChild(cartLine);
+  } 
+  // Sýna efni körfu
+  showCartContent(true);
+
+  // TODO sýna/uppfæra samtölu körfu
+  resettotal()
+}
+
 function submitHandler(event) {
   // Komum í veg fyrir að form submiti
   event.preventDefault();
@@ -49,7 +90,11 @@ function submitHandler(event) {
 
   // TODO hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
   // á input
-  const quantity = ;
+  let quantity = parent.querySelector('input').valueAsNumber;
+  if (!quantity) {
+    console.error('Fjöldi fannst ekki');
+    return;
+  }
 
   // Bætum vöru í körfu (hér væri gott að bæta við athugun á því að varan sé til)
   addProductToCart(product, quantity);
@@ -64,4 +109,4 @@ for (const form of Array.from(addToCartForms)) {
   form.addEventListener('submit', submitHandler);
 }
 
-// TODO bæta við event handler á form sem submittar pöntun
+
