@@ -1,6 +1,6 @@
-import { formatPrice } from './lib/helpers.js';
-import { createCartLine, showCartContent } from './lib/ui.js';
-import { resettotal } from './lib/resettotal.js';
+import { formatPrice } from "./lib/helpers.js";
+import { createCartLine, showCartContent } from "./lib/ui.js";
+import { resettotal } from "./lib/resettotal.js";
 
 
 /**
@@ -120,5 +120,5 @@ function klara(event) {
 function showreceipt() {
 
 
-  
+
 }
