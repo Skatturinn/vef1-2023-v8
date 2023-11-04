@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "[Sýnilausn á verkefni 8](https://github.com/vefforritun/vef1-2023-v8).",
   "main": "main.js",
+  "lib": "./lib/*.js",
   "scripts": {
     "dev": "browser-sync start --server --files main.js **/*.js styles.css index.html",
     "copy:html": "cpy ./*.html ./build/",
