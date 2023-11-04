@@ -88,7 +88,7 @@ function submitHandler(event) {
   if (!product) {
     return;
   }
-
+window.submitHandler = submitHandler;
   // hér þarf að finna fjölda sem á að bæta við körfu með því að athuga
   // á input
   let quantity = parent.querySelector('input').valueAsNumber;
