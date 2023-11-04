@@ -130,3 +130,6 @@ function klara(event) {
   showreceipt(nafn,heimili,dot);
 }
 
+window.increment = increment
+window.save = save
+window.reset = reset
