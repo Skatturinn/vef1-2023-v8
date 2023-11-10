@@ -122,10 +122,16 @@ function klara(event) {
   let nafn = event.target[0].value
   if (!nafn) {
     nafn = prompt('Vantar nafn')
+    if (!nafn) {
+          window.alert('nafn tómt')
+    return}
   }
   let heimili = event.target[1].value
   if (!heimili) {
     heimili = prompt('Vantar heimilisfang')
+      if (!heimili) {
+        window.alert('heimilisfang tómt')
+      return}
   }
   showreceipt(nafn,heimili,dot);
 }
